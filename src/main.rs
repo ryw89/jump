@@ -97,6 +97,10 @@ fn main() {
 
     // Main 'jump' logic -- Only reached if --chdir, --init, or
     // --shell weren't called
+    if opt.dir.len() == 0 {
+        bad_exit!("jump: no arguments supplied")
+    }
+
     match jump(opt.dir) {
         Ok(_) => (),
         Err(_) => bad_exit!(format!(

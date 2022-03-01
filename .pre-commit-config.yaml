@@ -23,3 +23,12 @@ repos:
     rev: v1.0
     hooks:
     -   id: fmt
+-   repo: local
+    hooks:
+    -   id: rust-clippy
+        name: Cargo clippy
+        description: Run cargo clippy
+        entry: cargo clippy --all-targets --all-features -- -Dclippy::all
+        pass_filenames: false
+        types: [file, rust]
+        language: system

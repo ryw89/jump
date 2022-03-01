@@ -45,7 +45,7 @@ pub fn jump(args: Vec<String>) -> Result<(), Box<dyn Error>> {
 }
 
 /// Score a directory
-fn score(args: &Vec<String>, dir: &Dir) -> u32 {
+fn score(args: &[String], dir: &Dir) -> u32 {
     let fuzz_score = token_sort_ratio(&args.join(" "), &dir.dir.replace("/", " "), true, true);
     fuzz_score.into()
 }

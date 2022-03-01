@@ -54,7 +54,7 @@ pub fn init_db() -> Result<(), Box<dyn Error>> {
                    FOREIGN KEY(dir_id) REFERENCES dir(id)
                );";
 
-    for s in vec![dir, last_searches] {
+    for s in &[dir, last_searches] {
         match conn.execute(s, []) {
             Ok(_) => {}
             Err(e) => return Err(Box::new(e)),
@@ -117,7 +117,7 @@ pub fn get_dir_by_name(dir: &str) -> Result<Dir, Box<dyn Error>> {
         }
     }
 
-    Err(String::from(format!("No results found for directory {}", dir)).into())
+    Err(format!("No results found for directory {}", dir).into())
 }
 
 /// Generate a new Dir.
@@ -150,7 +150,7 @@ pub fn make_new_dir(dir: &str) -> Result<Dir, Box<dyn Error>> {
     }
 
     Ok(Dir {
-        id: id,
+        id,
         dir: dir.to_string(),
         access_count: 0,
         last_accessed: 0,

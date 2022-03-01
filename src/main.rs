@@ -97,14 +97,14 @@ fn main() {
 
     // Main 'jump' logic -- Only reached if --chdir, --init, or
     // --shell weren't called
-    if opt.dir.len() == 0 {
+    if opt.dir.is_empty() {
         bad_exit!("jump: no arguments supplied")
     }
 
     match jump(opt.dir) {
         Ok(_) => (),
-        Err(_) => bad_exit!(format!(
-            "No entries in jump database. Try changing directories first."
-        )),
+        Err(_) => {
+            bad_exit!("No entries in jump database. Try changing directories first.".to_string())
+        }
     }
 }

@@ -1,0 +1,14 @@
+[package]
+name = "jump"
+version = "0.1.0"
+authors = ["Ryan Whittingham <ryanwhittingham89@gmail.com>"]
+description = "Jump between directories."
+readme = "README.md"
+license = "MIT"
+edition = "2021"
+
+[dependencies]
+directories = "4.0.1"
+fuzzywuzzy = "0.0.2"
+structopt = "0.3"
+rusqlite = "0.26.3"

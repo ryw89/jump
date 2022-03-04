@@ -2,6 +2,7 @@ mod db;
 mod dirs;
 mod jump;
 mod macros;
+mod score;
 mod shell;
 
 use std::env::current_dir;

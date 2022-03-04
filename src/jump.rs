@@ -1,8 +1,7 @@
 use std::error::Error;
 
-use fuzzywuzzy::fuzz::token_sort_ratio;
-
 use crate::db::{get_conn, Dir};
+use crate::score::score;
 
 /// Find the best-matching directory and print.
 pub fn jump(args: Vec<String>) -> Result<(), Box<dyn Error>> {
@@ -42,10 +41,4 @@ pub fn jump(args: Vec<String>) -> Result<(), Box<dyn Error>> {
     }
 
     Ok(())
-}
-
-/// Score a directory
-fn score(args: &[String], dir: &Dir) -> u32 {
-    let fuzz_score = token_sort_ratio(&args.join(" "), &dir.dir.replace("/", " "), true, true);
-    fuzz_score.into()
 }

@@ -4,8 +4,29 @@ use crate::db::Dir;
 
 /// Score a query against a directory
 pub fn score(args: &[String], dir: &Dir) -> u32 {
-    let fuzz_score = token_sort_ratio(&args.join(" "), &dir.dir.replace('/', " "), true, true);
+    let normalized_dir = normalize_directory(args, &dir.dir);
+    let fuzz_score = token_sort_ratio(&args.join(" "), &normalized_dir, true, true);
     fuzz_score.into()
+}
+
+/// Normalize a directory.
+///
+/// The idea here is that queries are likely to be for the end bits of
+/// a directory.
+fn normalize_directory(args: &[String], dir: &str) -> String {
+    let num_terms = args.len();
+    let dir_split: Vec<String> = dir
+        .replace('/', " ")
+        .split_whitespace()
+        .map(|s| s.to_string())
+        .collect();
+
+    let mut slice_len = dir_split.len() - num_terms;
+    if slice_len > dir_split.len() {
+        slice_len = dir_split.len();
+    }
+
+    dir_split[(slice_len)..].join(" ")
 }
 
 #[cfg(test)]
